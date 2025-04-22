@@ -58,7 +58,8 @@ public class StorageService {
         if (response.statusCode() != 200) {
             throw new Exception(response.body());
         }
-        return filename;
+//        return filename;
+        return "%s/%s".formatted(bucketName, filename);
     }
 
     private HttpRequest.BodyPublisher ofMimeMultipartData(MultipartFile file, String boundary) throws IOException {
