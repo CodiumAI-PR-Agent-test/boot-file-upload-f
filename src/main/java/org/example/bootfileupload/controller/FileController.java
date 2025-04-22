@@ -4,6 +4,9 @@ import lombok.extern.java.Log;
 import org.example.bootfileupload.model.entity.MyFile;
 import org.example.bootfileupload.model.repository.MyFileRepository;
 import org.example.bootfileupload.service.StorageService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,5 +41,18 @@ public class FileController {
     @GetMapping
     public ResponseEntity<List<MyFile>> getAll() {
         return ResponseEntity.ok(myFileRepository.findAll());
+    }
+
+    @GetMapping("/{filename}")
+    public ResponseEntity<byte[]> file(@PathVariable String filename) {
+        try {
+            byte[] fileBytes = storageService.download(filename); // 버킷 -> 파일 이름 요청
+
+            // 페이지(템플릿)로 응답하지 않고, 데이터로 응답하겠다
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"").contentType(MediaType.APPLICATION_OCTET_STREAM).body(fileBytes);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
