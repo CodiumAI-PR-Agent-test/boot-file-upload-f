@@ -79,7 +79,7 @@
                 if (filename.startsWith('test-img')) {
                     fileCard.innerHTML += `<img src="/api/file/${filename}" alt="${uuid}">`
                 } else {
-                    fileCard.innerHTML += `<a download href="/api/file/${filename}">`
+                    fileCard.innerHTML += `<a download href="/api/file/${filename}">파일 다운로드</a>`
                 }
                 fileCard.innerHTML += `<p>${createdAt}</p>`
                 fileList.appendChild(fileCard);
