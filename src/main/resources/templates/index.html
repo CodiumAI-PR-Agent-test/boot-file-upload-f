@@ -82,6 +82,23 @@
                     fileCard.innerHTML += `<a download href="/api/file/${filename}">파일 다운로드</a>`
                 }
                 fileCard.innerHTML += `<p>${createdAt}</p>`
+                const button = document.createElement('button');
+                button.textContent = "삭제";
+                button.addEventListener('click', async () => {
+                    const response = await fetch(`/api/file/${uuid}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if (response.status === 204) {
+                        alert("삭제 성공!")
+                    } else {
+                        alert("삭제 실패!")
+                    }
+                    await getFiles();
+                })
+                fileCard.appendChild(button);
                 fileList.appendChild(fileCard);
             }
         }

@@ -55,4 +55,10 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> delete(@PathVariable String uuid) {
+        myFileRepository.deleteById(uuid);
+        return ResponseEntity.noContent().build();
+    }
 }
