@@ -68,7 +68,19 @@
                 }
             });
             const data = await response.json();
-            fileList.innerHTML = JSON.stringify(data);
+            // fileList.innerHTML = JSON.stringify(data);
+            fileList.innerHTML = ""; // 처음에 비워줌
+            for (const file of data) {
+                const fileCard = document.createElement('div');
+                fileCard.innerHTML = `
+                <p>${file.uuid}</p>
+                <p>${file.filename}</p>
+                <p>${file.createdAt}</p>
+                `
+                fileList.appendChild(fileCard);
+            }
+
+
         }
         document.addEventListener('DOMContentLoaded', async () => {
             await getFiles();
