@@ -22,6 +22,9 @@
             padding: 1rem;
             font-family: 'MarinesBold', sans-serif;
         }
+        #file-list img {
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -72,15 +75,15 @@
             fileList.innerHTML = ""; // 처음에 비워줌
             for (const file of data) {
                 const fileCard = document.createElement('div');
-                fileCard.innerHTML = `
-                <p>${file.uuid}</p>
-                <p>${file.filename}</p>
-                <p>${file.createdAt}</p>
-                `
+                const { filename, uuid, createdAt } = file;
+                if (filename.startsWith('test-img')) {
+                    fileCard.innerHTML += `<img src="/api/file/${filename}" alt="${uuid}">`
+                } else {
+                    fileCard.innerHTML += `<a download href="/api/file/${filename}">`
+                }
+                fileCard.innerHTML += `<p>${createdAt}</p>`
                 fileList.appendChild(fileCard);
             }
-
-
         }
         document.addEventListener('DOMContentLoaded', async () => {
             await getFiles();
