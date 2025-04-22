@@ -17,5 +17,5 @@ public class MyFile {
     @Column(nullable = false)
     String filename;
     @CreationTimestamp
-    LocalDateTime createdAt = ZonedDateTime.now(ZoneOffset.UTC).toLocalDateTime();
+    ZonedDateTime createdAt = ZonedDateTime.now(ZoneOffset.UTC);
 }
