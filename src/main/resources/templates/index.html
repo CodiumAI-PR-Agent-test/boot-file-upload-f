@@ -27,9 +27,9 @@
 <body>
     <h1>파일 업로드</h1>
     <section>
-        <form>
+        <form id="file-form">
             <label>
-                파일 : <input type="file" id="file" accept=".pdf, .xlsx, .xls, image/*">
+                파일 : <input type="file" id="file-input" accept=".pdf, .xlsx, .xls, image/*">
             </label>
             <button type="submit">제출</button>
         </form>
@@ -37,5 +37,16 @@
     <section>
         <!-- 파일 목록 들어간다 -->
     </section>
+    <script>
+        const fileForm = document.querySelector('#file-form');
+        const fileInput = document.querySelector('#file-input');
+        fileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log(fileInput.files);
+            const file = fileInput.files[0];
+            alert("업로드 되었습니다!");
+            fileInput.value = ""; // 업로드된 파일 리셋.
+        });
+    </script>
 </body>
 </html>
